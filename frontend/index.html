@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<title>Encrypted Cloud Prescription Authentication System</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f2f6fb;
+text-align:center;
+}
+
+.container{
+background:white;
+width:420px;
+margin:auto;
+margin-top:40px;
+padding:25px;
+border-radius:8px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+input{
+width:90%;
+padding:10px;
+margin:8px;
+border:1px solid #ccc;
+border-radius:4px;
+}
+
+button{
+background:#1976d2;
+color:white;
+border:none;
+padding:12px;
+width:95%;
+border-radius:5px;
+font-size:16px;
+cursor:pointer;
+}
+
+button:disabled{
+background:gray;
+}
+
+#status{
+margin-top:10px;
+font-weight:bold;
+}
+
+#resultBox{
+margin-top:20px;
+display:none;
+background:#e8f5e9;
+padding:15px;
+border-radius:5px;
+}
+
+#qrcode{
+margin-top:15px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h2>Encrypted Cloud Prescription Authentication System</h2>
+
+<div class="container">
+
+<h3>Doctor Upload Prescription</h3>
+
+<input id="doctor" placeholder="Doctor Name"><br> <input id="patient" placeholder="Patient Name"><br> <input id="data" placeholder="Prescription"><br>
+
+<input type="file" id="prescriptionFile" accept=".jpg,.png,.pdf"><br>
+
+<button id="uploadBtn" onclick="upload()">Upload Prescription</button>
+
+<div id="status"></div>
+
+<div id="resultBox">
+
+<h3 id="result"></h3>
+
+<a id="verifyLink" target="_blank"></a>
+
+<div id="qrcode"></div>
+
+</div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<script>
+
+const API = "https://chzn3ae3mh.execute-api.ap-south-1.amazonaws.com"
+
+async function upload() {
+
+    const btn = document.getElementById("uploadBtn");
+    const status = document.getElementById("status");
+
+    btn.disabled = true;
+    status.innerHTML = "Uploading prescription...";
+
+    const doctor = document.getElementById("doctor").value;
+    const patient = document.getElementById("patient").value;
+    const prescription = document.getElementById("data").value;
+
+    const fileInput = document.getElementById("prescriptionFile");
+    const file = fileInput.files[0];
+
+    let fileURL = "";
+
+    try {
+
+        // STEP 1 — Upload file to S3 (if file selected)
+        if (file) {
+
+            const fileName = Date.now() + "_" + file.name;
+
+            fileURL = "https://prescription-storage-system.s3.ap-south-1.amazonaws.com/prescriptions/" + fileName;
+
+            await fetch(fileURL, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": file.type
+                },
+                body: file
+            });
+
+        }
+
+        // STEP 2 — Send prescription data to Lambda
+        const response = await fetch(API + "/upload", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                doctor: doctor,
+                patient: patient,
+                data: prescription,
+                file: fileURL
+            })
+        });
+
+        const result = await response.json();
+
+        const pid = result.PrescriptionID;
+
+        if (!pid) {
+            status.innerHTML = "Upload failed";
+            btn.disabled = false;
+            return;
+        }
+
+        status.innerHTML = "Upload successful!";
+
+        document.getElementById("result").innerHTML =
+            "Prescription ID: <b>" + pid + "</b>";
+
+        const verifyURL = "http://13.127.58.3/verify.html?id=" + pid;
+
+        document.getElementById("verifyLink").innerHTML = verifyURL;
+        document.getElementById("verifyLink").href = verifyURL;
+
+        document.getElementById("resultBox").style.display = "block";
+
+        document.getElementById("qrcode").innerHTML = "";
+
+        new QRCode(document.getElementById("qrcode"), verifyURL);
+
+    } catch (error) {
+
+        console.log(error);
+        status.innerHTML = "Upload failed";
+
+    }
+
+    btn.disabled = false;
+}
+
+</script>
+
+</body>
+</html> 
