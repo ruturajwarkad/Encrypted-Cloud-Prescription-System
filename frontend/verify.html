@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Verify Prescription</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f8fb;
+text-align:center;
+}
+
+.container{
+background:white;
+width:420px;
+margin:auto;
+margin-top:60px;
+padding:25px;
+border-radius:8px;
+box-shadow:0 4px 12px rgba(0,0,0,0.1);
+}
+
+input{
+width:90%;
+padding:10px;
+margin:10px;
+border:1px solid #ccc;
+border-radius:4px;
+}
+
+button{
+background:#1976d2;
+color:white;
+border:none;
+padding:12px;
+width:95%;
+border-radius:5px;
+font-size:16px;
+cursor:pointer;
+}
+
+.valid{
+color:green;
+font-size:20px;
+font-weight:bold;
+}
+
+.invalid{
+color:red;
+font-size:20px;
+font-weight:bold;
+}
+
+.dataBox{
+margin-top:20px;
+padding:15px;
+background:#f1f1f1;
+border-radius:5px;
+display:none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h2>Pharmacy Prescription Verification</h2>
+
+<div class="container">
+
+<input id="pid" placeholder="Enter Prescription ID">
+
+<button onclick="verify()">Verify Prescription</button>
+
+<h3 id="status"></h3>
+
+<div id="dataBox" class="dataBox">
+
+<div id="prescriptionFile" style="margin-bottom:15px;"></div>
+
+<p><b>Doctor:</b> <span id="doctor"></span></p>
+<p><b>Patient:</b> <span id="patient"></span></p>
+<p><b>Prescription:</b> <span id="prescription"></span></p>
+
+</div>
+
+</div>
+
+<script>
+
+const API = "https://chzn3ae3mh.execute-api.ap-south-1.amazonaws.com"
+
+function getQueryParam(){
+const params = new URLSearchParams(window.location.search)
+return params.get("id")
+}
+
+window.onload=function(){
+
+let id = getQueryParam()
+
+if(id){
+document.getElementById("pid").value=id
+verify()
+}
+
+}
+
+function verify(){
+
+let pid=document.getElementById("pid").value
+
+document.getElementById("status").innerHTML="Checking prescription..."
+
+fetch(API+"/verify?id="+pid)
+
+.then(res=>res.json())
+
+.then(response=>{
+
+if(response.status=="Valid Prescription"){
+
+document.getElementById("status").innerHTML="VALID PRESCRIPTION"
+document.getElementById("status").className="valid"
+
+document.getElementById("doctor").innerHTML=response.DoctorName
+document.getElementById("patient").innerHTML=response.PatientName
+document.getElementById("prescription").innerHTML=response.EncryptedData
+
+document.getElementById("dataBox").style.display="block"
+
+if(response.FileURL){
+let fileURL=response.FileURL
+
+if(fileURL.endsWith(".pdf")){
+
+document.getElementById("prescriptionFile").innerHTML=
+`<iframe src="${fileURL}" width="100%" height="500px"></iframe>`
+
+}else{
+
+document.getElementById("prescriptionFile").innerHTML=
+`<img src="${fileURL}" style="max-width:100%">`
+
+}
+
+}
+
+}else{
+
+document.getElementById("status").innerHTML="PRESCRIPTION NOT FOUND"
+document.getElementById("status").className="invalid"
+document.getElementById("dataBox").style.display="none"
+
+}
+
+})
+
+.catch(err=>{
+console.log(err)
+document.getElementById("status").innerHTML="Verification failed"
+document.getElementById("status").className="invalid"
+})
+
+}
+
+</script>
+
+</body>
+</html>
