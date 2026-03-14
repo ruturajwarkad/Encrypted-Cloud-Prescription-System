@@ -35,7 +35,7 @@ This demo shows:
 - System fetching prescription from cloud
 - Authentication result displayed instantly
 
-![QR Code Verification Demo](demo-qr-verification.gif)
+![QR Code Verification Demo](demo/demo_2.gif)
 
 ---
 
