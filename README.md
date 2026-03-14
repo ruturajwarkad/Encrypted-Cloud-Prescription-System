@@ -1,4 +1,4 @@
-**# 🔐 Encrypted Cloud Prescription Authentication System**
+**# 🔐 Encrypted Cloud Prescription Authentication System
 
 A cloud-based medical prescription verification system that ensures prescriptions are authentic using QR codes, secure cloud storage, and serverless architecture.
 
