@@ -24,7 +24,7 @@ This demo shows:
 - Prescription stored securely in cloud
 - Verification using a generated link
 
-![Doctor Upload Demo](demo-upload.gif)
+![Doctor Upload Demo](demo/demo_1.gif)
 
 ---
 
