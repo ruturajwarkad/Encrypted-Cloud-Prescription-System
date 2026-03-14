@@ -1,156 +1,135 @@
-<div align="center">
+# 🔐 Encrypted Cloud Prescription Authentication System
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=30&pause=1000&color=00C9FF&center=true&vCenter=true&width=700&lines=Encrypted+Cloud+Prescription;Authentication+System+🔐" alt="Typing SVG" />
+A **cloud-based medical prescription verification system** that ensures prescriptions are authentic using **QR codes, secure cloud storage, and serverless architecture**.
 
-<br/>
-
-> **Secure. Smart. Cloud-Powered.**  
-> A cloud-native system that authenticates medical prescriptions using QR codes and encrypted cloud storage — making healthcare verification tamper-proof and instant.
-
-<br/>
-
-[![AWS](https://img.shields.io/badge/AWS-Cloud_Powered-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white)](https://aws.amazon.com/)
-[![Lambda](https://img.shields.io/badge/Lambda-Serverless-FF9900?style=for-the-badge&logo=awslambda&logoColor=white)](https://aws.amazon.com/lambda/)
-[![S3](https://img.shields.io/badge/Amazon_S3-Storage-569A31?style=for-the-badge&logo=amazons3&logoColor=white)](https://aws.amazon.com/s3/)
-[![JavaScript](https://img.shields.io/badge/JavaScript-Frontend-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-
-</div>
+This system helps pharmacies, hospitals, and authorities **verify prescriptions instantly and prevent fraud.**
 
 ---
 
-## 🧠 What Is This?
+## 🚀 Project Overview
 
-Fake prescriptions are a real problem in healthcare. This system solves it by **encrypting and storing prescriptions on the cloud**, then generating a **unique QR code** or **verification link** for each one — so pharmacists or hospitals can verify authenticity in seconds.
+The **Encrypted Cloud Prescription Authentication System** allows doctors to upload prescriptions securely to the cloud.  
+Each prescription is linked with a **unique QR code and ID**, enabling quick verification by pharmacies or users.
 
-No more paper fraud. No more manual lookups. Just scan and confirm. ✅
-
----
-
-## 🎬 Live Demo
-
-> ⚠️ **Live instance is currently paused** to avoid AWS charges. All demos below are recorded walkthroughs.
-
-### 📋 Doctor Uploads Prescription + Link Verification
-
-*How a doctor uploads patient info & prescription, and how verification works via a shareable link*
-
-![Demo – Upload & Link Verification](./demo-upload-and-link.gif)
+The system leverages **AWS cloud services** to provide a scalable and secure verification pipeline.
 
 ---
 
-### 📱 QR Code Verification
+# 🎥 System Demo
 
-*Scan the QR code to instantly verify prescription authenticity*
+## 👨‍⚕️ Doctor Upload & Verification via Link
 
-![Demo – QR Code Verification](./demo-qr-verification.gif)
+This demo shows:
+- Doctor uploading prescription
+- Prescription stored securely in cloud
+- Verification using a generated link
+
+![Doctor Upload Demo](demo-upload.gif)
 
 ---
 
-## ⚙️ System Architecture
+## 📱 Verification Using QR Code
+
+This demo shows:
+- Scanning the QR code
+- System fetching prescription from cloud
+- Authentication result displayed instantly
+
+![QR Code Verification Demo](demo-qr-verification.gif)
+
+---
+
+# ☁️ System Architecture
 
 ```
-Doctor / User
-     │
-     ▼
-[ Frontend (HTML/CSS/JS) ]
-     │
-     ▼
-[ API Gateway ]  ◄── Entry point for all requests
-     │
-     ▼
-[ AWS Lambda ]   ◄── Serverless logic & encryption
-     │
-     ▼
-[ AWS EC2 ]      ◄── Core processing server
-     │
-     ▼
-[ Amazon S3 ]    ◄── Encrypted prescription storage
-     │
-     ▼
-[ QR Code / Link Generated ]
-     │
-     ▼
-[ Pharmacist / Verifier scans or opens link → ✅ Verified ]
+User Uploads Prescription
+        │
+        ▼
+    API Gateway
+        │
+        ▼
+     AWS Lambda
+        │
+        ▼
+      AWS EC2
+        │
+        ▼
+   Amazon S3 Storage
+        │
+        ▼
+  Verification Response
 ```
 
----
-
-## ✨ Features
-
-| Feature | Description |
-|--------|-------------|
-| 🔐 **Encrypted Storage** | Prescriptions are securely stored in Amazon S3 |
-| 📷 **QR Authentication** | Each prescription gets a unique, scannable QR code |
-| 🔗 **Link Verification** | Share a verification link for remote or online checks |
-| ☁️ **Cloud-Native** | Fully serverless & scalable via AWS infrastructure |
-| ⚡ **Instant Response** | Lambda ensures near real-time verification |
+The architecture combines **serverless computing and cloud infrastructure** to ensure secure and fast prescription validation.
 
 ---
 
-## 🛠️ Tech Stack
+# 🛠️ Technologies Used
 
-| Layer | Technology |
-|-------|-----------|
-| Frontend | HTML, CSS, JavaScript |
-| API | Amazon API Gateway |
-| Compute | AWS EC2 |
-| Serverless Logic | AWS Lambda |
-| Storage | Amazon S3 |
-| Authentication | QR Code + Unique Prescription ID |
+### ☁️ Cloud Services
+- AWS EC2
+- AWS Lambda
+- AWS API Gateway
+- Amazon S3
 
----
+### 💻 Development
+- HTML
+- CSS
+- JavaScript
 
-## 🚀 Getting Started
-
-> **Prerequisites:** You need an AWS account with the following services configured.
-
-### AWS Services to Set Up
-
-```
-✅ EC2 Instance      – Application server
-✅ Lambda Function   – Prescription processing logic  
-✅ API Gateway       – REST API endpoint
-✅ S3 Bucket         – Encrypted file storage
-```
-
-### Steps
-
-```bash
-# 1. Clone the repository
-git clone https://github.com/YOUR_USERNAME/encrypted-cloud-prescription.git
-
-# 2. Configure your AWS credentials
-aws configure
-
-# 3. Deploy Lambda function (from /lambda directory)
-# Upload the function zip via AWS Console or CLI
-
-# 4. Update API Gateway endpoint in frontend config
-
-# 5. Open index.html or deploy to EC2
-```
-
-> 📌 Refer to `architecture-notes.md` *(if available)* for detailed AWS setup steps.
+### 🔐 Security
+- QR Code Authentication
+- Secure Cloud Storage
 
 ---
 
-## ⚠️ Important Note
+# ⭐ Key Features
 
-This project uses **paid AWS services** (EC2, Lambda, S3, API Gateway).  
-The live demo is **currently disabled** to prevent unnecessary cloud charges.  
-To run locally, configure all AWS resources and update the endpoint URLs in the frontend.
-
----
-
-## 👨‍💻 Author
-
-**Ruturaj** — B.Tech Computer Engineering, PCCoE  
-Generative AI Intern @ Brainovision Solutions | SY Coordinator, PCCoE ACM Student Chapter
+- 🔒 Secure prescription storage in cloud
+- 📱 QR Code based authentication
+- 🔎 Manual prescription ID verification
+- ☁️ Scalable cloud-based architecture
+- ⚡ Fast verification response
 
 ---
 
-<div align="center">
+# ⚙️ Setup Notes
 
-*Built with ☁️ and 🔐 to make healthcare verification smarter.*
+To run this project fully, you must configure:
 
-</div>
+- AWS EC2 instance
+- AWS Lambda function
+- API Gateway endpoints
+- Amazon S3 bucket
+
+These cloud resources enable the **upload, storage, and verification pipeline**.
+
+---
+
+# 🌐 Live Demo
+
+Currently **disabled** because the **AWS EC2 instance is turned off** to avoid cloud charges.
+
+---
+
+# 📌 Repository Contents
+
+- Project source code
+- Cloud architecture implementation
+- Frontend verification interface
+- Prescription upload module
+
+---
+
+# 👨‍💻 Author
+
+**Ruturaj Warkad**
+
+B.Tech Computer Engineering  
+PCCOE
+
+---
+
+# 📜 License
+
+This project is for **educational and demonstration purposes**.
