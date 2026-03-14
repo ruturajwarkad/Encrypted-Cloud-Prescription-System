@@ -42,22 +42,37 @@ This demo shows:
 # ☁️ System Architecture
 
 ```
-User Uploads Prescription
+User (Doctor / Pharmacist)
         │
         ▼
-    API Gateway
+Web Interface hosted on AWS EC2
+(index.html / verify.html)
         │
         ▼
-     AWS Lambda
+Amazon API Gateway
+Handles incoming HTTP requests
         │
         ▼
-      AWS EC2
+AWS Lambda Functions
+• Upload Handler
+• Verification Handler
         │
         ▼
-   Amazon S3 Storage
+Storage Layer
+   ├── Amazon S3
+   │     Stores prescription images
+   │
+   └── Amazon DynamoDB
+         Stores prescription metadata
+         • Prescription ID
+         • Doctor Information
+         • Timestamp
+         • S3 File URL
+         • Verification Status
         │
         ▼
-  Verification Response
+Verification Result Returned to User
+
 ```
 
 The architecture combines **serverless computing and cloud infrastructure** to ensure secure and fast prescription validation.
