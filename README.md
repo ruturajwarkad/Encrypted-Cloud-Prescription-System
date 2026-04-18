@@ -1,151 +1,174 @@
 # 🔐 Encrypted Cloud Prescription Authentication System
 
-A cloud-based medical prescription verification system that ensures prescriptions are authentic using QR codes, secure cloud storage, and serverless architecture.
+A **secure, scalable, and real-time prescription verification system** built using cloud technologies to prevent misuse and ensure authenticity in healthcare workflows.
 
-This system helps pharmacies, hospitals, and authorities verify prescriptions instantly and prevent fraud.
-
----
-
-## 🚀 Project Overview
-
-The Encrypted Cloud Prescription Authentication System allows doctors to upload prescriptions securely to the cloud.  
-Each prescription is linked with a unique QR code and ID, enabling quick verification by pharmacies or users.
-
-The system leverages AWS cloud services to provide a scalable and secure verification pipeline.
+This system enables **instant validation of prescriptions** using QR codes and unique IDs, reducing fraud and improving trust between doctors, pharmacies, and patients.
 
 ---
 
-# 🎥 System Demo
+## 🚀 Problem Statement
 
-## 👨‍⚕️ Doctor Upload & Verification via Link
+Fake and duplicate prescriptions are a growing concern in healthcare systems, leading to:
 
-This demo shows:
-- Doctor uploading prescription
-- Prescription stored securely in cloud
-- Verification using a generated link
+- Unauthorized access to medicines  
+- Lack of trust in prescription authenticity  
+- Manual and inefficient verification processes  
+
+There is a need for a **digital, reliable, and real-time verification mechanism**.
+
+---
+
+## 💡 Solution Overview
+
+This project implements a **cloud-based authentication pipeline** where:
+
+- Doctors upload prescriptions securely to the cloud  
+- Each prescription is assigned a **unique ID and QR code**  
+- Pharmacies/users can **scan or enter ID to verify authenticity instantly**  
+
+The system ensures:
+
+- **Integrity** (no tampering)  
+- **Traceability** (each prescription uniquely tracked)  
+- **Real-time access** (instant verification)  
+
+---
+
+## 🎥 System Demo
+
+### 👨‍⚕️ Doctor Upload & Verification via Link
+
+- Doctor uploads prescription  
+- File stored securely in cloud  
+- Verification performed using generated link  
 
 ![Doctor Upload Demo](demo/demo_1.gif)
 
 ---
 
-## 📱 Verification Using QR Code
+### 📱 QR Code-Based Verification
 
-This demo shows:
-- Scanning the QR code
-- System fetching prescription from cloud
-- Authentication result displayed instantly
+- QR code scanned by user/pharmacist  
+- System fetches data from cloud  
+- Verification result displayed instantly  
 
 ![QR Code Verification Demo](demo/demo_2.gif)
 
 ---
 
-# ☁️ System Architecture
+## ☁️ System Architecture
 
-```
-User (Doctor / Pharmacist)
-        │
-        ▼
-Web Interface hosted on AWS EC2
-(index.html / verify.html)
-        │
-        ▼
-Amazon API Gateway
-Handles incoming HTTP requests
-        │
-        ▼
-AWS Lambda Functions
-• Upload Handler
-• Verification Handler
-        │
-        ▼
-Storage Layer
-   ├── Amazon S3
-   │     Stores prescription images
-   │
-   └── Amazon DynamoDB
-         Stores prescription metadata
-         • Prescription ID
-         • Doctor Information
-         • Timestamp
-         • S3 File URL
-         • Verification Status
-        │
-        ▼
-Verification Result Returned to User
+    User (Doctor / Pharmacist)
+            │
+            ▼
+    Web Interface (HTML/CSS/JS)
+            │
+            ▼
+    Amazon API Gateway
+            │
+            ▼
+    AWS Lambda Functions
+    • Upload Handler
+    • Verification Handler
+            │
+            ▼
+    Storage Layer
+       ├── Amazon S3 (Prescription Images)
+       └── DynamoDB (Metadata + IDs)
+            │
+            ▼
+    Real-time Verification Response
 
-```
+### Design Highlights
 
-The architecture combines serverless computing and cloud infrastructure to ensure secure and fast prescription validation.
+- **Serverless architecture** for scalability and cost efficiency  
+- **Decoupled components** (frontend, API, compute, storage)  
+- **Low-latency request handling** for real-time validation  
 
 ---
 
-# 🛠️ Technologies Used
+## 🛠️ Technologies Used
 
-### ☁️ Cloud Services
-- AWS EC2
-- AWS Lambda
-- AWS API Gateway
-- Amazon S3
+### ☁️ Cloud & Backend
 
-### 💻 Development
-- HTML
-- CSS
-- JavaScript
+- AWS Lambda (serverless compute)  
+- API Gateway (REST APIs)  
+- DynamoDB (NoSQL database)  
+- Amazon S3 (object storage)  
 
-### 🔐 Security
-- QR Code Authentication
-- Secure Cloud Storage
+### 💻 Frontend
 
----
+- HTML, CSS, JavaScript  
 
-# ⭐ Key Features
+### 🔐 Security & Validation
 
-- 🔒 Secure prescription storage in cloud
-- 📱 QR Code based authentication
-- 🔎 Manual prescription ID verification
-- ☁️ Scalable cloud-based architecture
-- ⚡ Fast verification response
+- QR Code-based authentication  
+- Unique Prescription ID mapping  
+- Controlled API access  
 
 ---
 
-# ⚙️ Setup Notes
+## ⭐ Key Features
 
-To run this project fully, you must configure:
-
-- AWS EC2 instance
-- AWS Lambda function
-- API Gateway endpoints
-- Amazon S3 bucket
-
-These cloud resources enable the upload, storage, and verification pipeline.
+- 🔐 **Secure cloud storage** for prescriptions  
+- 📱 **QR-based instant verification**  
+- ⚡ **Real-time authentication via APIs**  
+- ☁️ **Scalable serverless architecture**  
+- 🧾 **Unique ID tracking for each prescription**  
 
 ---
 
-# 🌐 Live Demo
+## 🧠 Key Learnings
 
-Currently disabled because the AWS EC2 instance is turned off to avoid cloud charges.
-
----
-
-# 📌 Repository Contents
-
-- Project source code
-- Cloud architecture implementation
-- Frontend verification interface
-- Prescription upload module
+- Designed an **end-to-end distributed system** (frontend → API → cloud backend)  
+- Gained hands-on experience with **serverless architecture on AWS**  
+- Understood **real-world constraints** like scalability, latency, and security  
+- Built a system focusing on **reliability and practical usability**, not just implementation  
 
 ---
 
-# 👨‍💻 Author
+## 📈 Future Enhancements
 
-**Ruturaj Warkad**
-
-B.Tech Computer Engineering  
-PCCOE
+- 🤖 **AI/NLP integration** to extract and process prescription data  
+- 🚨 **Anomaly detection** for suspicious prescription patterns  
+- 👥 Role-based dashboards (Doctor / Pharmacy / Admin)  
+- 🔐 Advanced encryption and access control mechanisms  
 
 ---
 
-# 📜 License
+## ⚙️ Setup Notes
 
-This project is for **educational and demonstration purposes**.
-******
+To deploy the system:
+
+- Configure AWS Lambda functions  
+- Set up API Gateway endpoints  
+- Create S3 bucket for storage  
+- Initialize DynamoDB for metadata  
+
+---
+
+## 🌐 Live Demo
+
+Currently disabled (EC2 instance stopped to avoid cloud costs).
+
+---
+
+## 📌 Repository Contents
+
+- Source code (frontend + backend logic)  
+- Cloud architecture setup  
+- Verification modules  
+- Demo assets  
+
+---
+
+## 👨‍💻 Author
+
+**Ruturaj Warkad**  
+B.Tech Computer Engineering, PCCOE  
+
+---
+
+## 📜 License
+
+For educational and demonstration purposes.
